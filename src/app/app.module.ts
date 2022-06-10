@@ -12,6 +12,7 @@ import { StockListComponent } from './components/stock-list/stock-list.component
 import { TrackedStocksComponent } from './components/tracked-stocks/tracked-stocks.component';
 import { DeleteComponent } from './popups/delete/delete.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -25,6 +26,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     DeleteComponent,
   ],
   imports: [
+    HttpClientModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
