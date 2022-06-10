@@ -6,6 +6,7 @@ import { EditStockComponent } from './../../popups/edit-stock/edit-stock.compone
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
+import { SharedService } from 'src/app/shared.service';
 
 @Component({
   selector: 'app-tracked-stocks',
@@ -16,10 +17,17 @@ export class TrackedStocksComponent implements OnInit {
   displayedColumns = ['Name','Symbol', 'Current Value', 'Min', 'Max', 'Expires', 'Action'];
   dataSource: Array<any> = [];
   @ViewChild('table') table!: MatTable<any>;
-  constructor(private dialog: MatDialog, private storageServices: LocalstorageservicesService) { }
+  constructor(
+    private dialog: MatDialog,
+    private storageServices: LocalstorageservicesService,
+    private sharedService: SharedService
+    ) { }
 
   ngOnInit(): void {
     this.dataSource = this.storageServices.getFromLocalStorage('stock');
+    this.sharedService.recoredChanged.subscribe(r=>{
+      console.log('update tracked record here');
+    })
   }
   openEditPopup(values: {}){
     this.dialog.open(EditStockComponent,{

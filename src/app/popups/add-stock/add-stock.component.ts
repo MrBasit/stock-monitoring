@@ -5,6 +5,7 @@ import { FormControl, FormGroup,} from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
 import { MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { LocalstorageservicesService } from 'src/app/services/localstorageservices.service';
+import { SharedService } from 'src/app/shared.service';
 
 @Component({
   selector: 'app-add-stock',
@@ -18,7 +19,11 @@ export class AddStockComponent implements OnInit {
  currentStock: any =[];
  data:any;
 checked = false;
-  constructor(@Inject(MAT_DIALOG_DATA) private dialogData : any, private storageServices: LocalstorageservicesService) {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) private dialogData : any, 
+    private storageServices: LocalstorageservicesService,
+    private sharedService:SharedService
+    ) {
     this.currentStock = this.storageServices.getFromLocalStorage('stock')
     console.log(this.currentStock)
   }
@@ -54,7 +59,7 @@ checked = false;
     this.storageServices.setToLocalStorage('stock',this.formArray)
     this.reset();
     console.log(this.formArray)
-    
+    this.sharedService.emitRecordChange('add');
   }
 
   reset(){
