@@ -44,10 +44,17 @@ export class StockListComponent implements OnInit {
   }
 
   addPopup(target:any){
-    this.dialog.open(AddStockComponent, {
-      width: '400px',
-      data : target
-    })
+    if(!true){
+      this.dialog.open(AddStockComponent, {
+        width: '400px',
+        data : target
+      })
+    }
+    else{
+      alert('this symbol is already getting tracked');
+
+    }
+    
     
   }
 }

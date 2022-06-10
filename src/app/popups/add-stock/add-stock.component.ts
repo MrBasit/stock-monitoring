@@ -49,18 +49,23 @@ checked = false;
 
 
   getAndSetFormData(formValues: any){
-    if(this.currentStock !== null){
-     this.formArray = this.currentStock;
-    }
-    let obj = formValues;
-    obj.name = this.dialogData.name;
-    obj.symbol = this.dialogData.symbol ;
+    //check existance of symbol in localstorage
 
-    this.formArray.push(obj)
-    this.storageServices.setToLocalStorage('stock',this.formArray)
-    this.reset();
-    console.log(this.formArray)
-    this.sharedService.emitRecordChange('add');
+    
+    if(this.currentStock !== null){
+      this.formArray = this.currentStock;
+      }
+      let obj = formValues;
+      obj.name = this.dialogData.name;
+      obj.symbol = this.dialogData.symbol ;
+  
+      this.formArray.push(obj)
+      this.storageServices.setToLocalStorage('stock',this.formArray)
+      this.reset();
+      console.log(this.formArray)
+      this.sharedService.emitRecordChange('add');
+    
+    
   }
 
   reset(){
