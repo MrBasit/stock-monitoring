@@ -1,0 +1,19 @@
+<h3 mat-dialog-title>View - {{currentValues.name}}</h3>
+<mat-dialog-content>
+    <label for="">Name</label>
+    <p>{{currentValues.name}}</p>
+    <label for="">Symbol</label>
+    <p>{{currentValues.symbol}}</p>
+    <label for="">Link</label>
+    <div>
+        <a href="#">URL to stock info</a>
+
+    </div>
+</mat-dialog-content>
+
+<!-- button form control -->
+<mat-dialog-actions class="form-control btn-save" style="justify-content: flex-end;">
+    <button mat-raised-button mat-flat-button mat-dialog-close>Done</button>
+</mat-dialog-actions>
+
+    

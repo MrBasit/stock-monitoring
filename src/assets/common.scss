@@ -1,0 +1,38 @@
+// popups styles
+h3{
+    font-weight: 500;
+    font-size: 1.3em;
+}
+
+.mat-width{
+    width: 100%;
+}
+
+.ctrl-toggle{
+    padding-bottom: 1.34375em;
+}
+
+.btn-save{
+    padding: 0;
+    margin: 0;
+    min-height: 0;
+
+}
+
+.mat-dialog-action{
+    justify-content: flex-end;
+}
+
+mat-form-field input{
+    padding-left: 0.5rem;
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+    padding: 0 !important;
+}
+
+.mat-datepicker ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+    align-items: center;
+}
+
+    

@@ -1,0 +1,45 @@
+
+
+ <h3 mat-dialog-title>Edit Stock Symbol - {{currentName}}</h3>
+ <mat-dialog-content>
+   <form class="example-form" [formGroup]="form"> 
+ 
+         <!-- min price input control -->
+         <div class="form-control">
+         <label>Min Price</label>                     
+           <mat-form-field class="example-full-width mat-width" appearance="fill">
+             <input matInput autocomplete="off" formControlName="minPrice">
+           </mat-form-field>
+        </div>
+   
+        <!-- max price input control -->
+        <div class="form-control">
+          <label for="">Max Price</label>
+            <mat-form-field class="example-full-width mat-width" appearance="fill">
+              <input matInput autocomplete="off" formControlName="maxPrice">
+            </mat-form-field>
+       </div>
+   
+       <!-- expire form control -->
+       <div class="form-control ctrl-toggle">
+           <mat-slide-toggle [color]="color" formControlName="expire">Expire</mat-slide-toggle >
+       </div>
+   
+       <!-- datepicker form control -->
+       <div class="form-control mat-datepicker">
+         <mat-form-field appearance="fill" class="mat-width">
+           <input matInput [matDatepicker]="picker" formControlName="date">
+           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+           <mat-datepicker #picker></mat-datepicker>
+         </mat-form-field>
+         
+       </div>
+   </form>
+</mat-dialog-content>
+
+ <!-- button form control -->
+ <mat-dialog-actions class="form-control btn-save" style="justify-content: flex-end;">
+    <button mat-raised-button mat-flat-button mat-dialog-close (click)="update()">Update</button>
+  </mat-dialog-actions>
+ 
+    

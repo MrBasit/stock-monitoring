@@ -1,0 +1,10 @@
+<h3 mat-dialog-title>Alert</h3>
+<mat-dialog-content>
+    <p>Are you sure you want to delete tracked stock {{currentName}}</p>
+</mat-dialog-content>
+
+<!-- button form control -->
+<mat-dialog-actions class="form-control" style="justify-content: center;">
+    <button mat-raised-button mat-flat-button mat-dialog-close (click)="cancel()">No</button>
+    <button mat-raised-button mat-flat-button mat-dialog-close (click)="delete()">Yes</button>
+</mat-dialog-actions>
