@@ -26,7 +26,7 @@ export class TrackedStocksComponent implements OnInit {
   ngOnInit(): void {
     this.dataSource = this.storageServices.getFromLocalStorage('stock');
     this.sharedService.recoredChanged.subscribe(r=>{
-      console.log('update tracked record here');
+    this.dataSource = this.storageServices.getFromLocalStorage('stock');
     })
   }
   openEditPopup(values: {}){
@@ -34,7 +34,6 @@ export class TrackedStocksComponent implements OnInit {
       width: '400px',
       data: values
     })
-
   }
   openViewPopup(values: {}){
     this.dialog.open(ViewStockComponent,{

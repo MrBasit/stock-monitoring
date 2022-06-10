@@ -1,3 +1,4 @@
+import { SharedService } from './../../shared.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { ThemePalette } from '@angular/material/core';
@@ -16,22 +17,20 @@ export class EditStockComponent implements OnInit {
 
  color : ThemePalette = 'primary'
  form!: FormGroup;
- currentName = this.dialogData.name;
+ currentName: string = '';
  currentStock: any =[];
- constructor(private storageServices: LocalstorageservicesService, @Inject(MAT_DIALOG_DATA) private dialogData: any) { }
+ formArray:Array<any> = []
+ constructor(private storageServices: LocalstorageservicesService, @Inject(MAT_DIALOG_DATA) private dialogData: any,private service: SharedService) { }
 
   ngOnInit(): void {
-    console.log(this.dialogData)
     this.createForm();
     this.currentStock = this.storageServices.getFromLocalStorage('stock');
+    this.currentName = this.dialogData.name;
   }
 
   // create form 
 
   createForm(): FormGroup{
-    console.log(this.dialogData.expire)
-    console.log(this.dialogData.expires)
-    console.log(this.dialogData)
     return this.form = new FormGroup({
       minPrice: new FormControl(this.dialogData.minPrice),
       maxPrice: new FormControl(this.dialogData.maxPrice),
@@ -41,15 +40,18 @@ export class EditStockComponent implements OnInit {
   }
 
   update(){
-    let formValues = this.form.value;
-    formValues.name =  this.currentName;
+    let obj = this.form.value;
+    obj.name =  this.currentName;
+    obj.symbol = this.dialogData.symbol;
         this.currentStock.forEach((element: any) => {
           if(element.name === this.currentName){
             let indexx = (this.currentStock as []).indexOf(element as never);
-            (this.currentStock as Array<any>).splice(indexx,1,formValues)
+            (this.currentStock as Array<any>).splice(indexx,1,obj)
           }
       });
-      this.storageServices.setToLocalStorage('stock',this.currentStock)
+      this.storageServices.setToLocalStorage('stock',this.currentStock);
+      this.service.emitRecordChange('edit');
+
    }
 
 }

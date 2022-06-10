@@ -1,6 +1,6 @@
+import { SharedService } from './../../shared.service';
 import { LocalstorageservicesService } from 'src/app/services/localstorageservices.service';
 import { Component, OnInit, Inject } from '@angular/core';
-import { inject } from '@angular/core/testing';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
@@ -12,7 +12,7 @@ export class DeleteComponent implements OnInit {
 
   currentStock: any = [];
   currentName: string= '';
-  constructor(private storageServices: LocalstorageservicesService, @Inject(MAT_DIALOG_DATA) private dialogData: any) { }
+  constructor(private storageServices: LocalstorageservicesService, @Inject(MAT_DIALOG_DATA) private dialogData: any,private service: SharedService) { }
 
   ngOnInit(): void {
     this.currentName = this.dialogData.name;
@@ -26,6 +26,7 @@ export class DeleteComponent implements OnInit {
         }
     });
     this.storageServices.setToLocalStorage('stock',this.currentStock)
+    this.service.emitRecordChange('delete');
   }
   cancel(){
 
