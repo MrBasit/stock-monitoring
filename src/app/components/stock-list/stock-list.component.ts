@@ -1,3 +1,4 @@
+import { LocalstorageservicesService } from './../../services/localstorageservices.service';
 import { AddStockComponent } from './../../popups/add-stock/add-stock.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
@@ -16,7 +17,7 @@ export class StockListComponent implements OnInit {
  dialogconfig = new MatDialogConfig();
  data={}
  
-  constructor(private dialog: MatDialog, private fb: FormBuilder, private dataService:DataService) {}
+  constructor(private dialog: MatDialog, private fb: FormBuilder, private dataService:DataService, private storageServices: LocalstorageservicesService) {}
 
   ngOnInit(): void {
     console.log('getting all recored');
@@ -44,18 +45,26 @@ export class StockListComponent implements OnInit {
   }
 
   addPopup(target:any){
-    if(!true){
+    //check existance of symbol in localstorage
+    let isExist= false;
+    (this.storageServices.getFromLocalStorage('stock') as [] ).forEach(e=>{
+      if(e['symbol'] == target.symbol){
+        isExist=true;
+        console.log('found');
+        // break;
+      }
+    })
+
+    if(isExist){
+      alert('this symbol is already getting tracked');
+    }
+    else{
       this.dialog.open(AddStockComponent, {
         width: '400px',
         data : target
       })
     }
-    else{
-      alert('this symbol is already getting tracked');
-
-    }
-    
-    
+    ;
   }
 }
 

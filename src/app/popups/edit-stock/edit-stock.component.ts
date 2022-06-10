@@ -43,6 +43,7 @@ export class EditStockComponent implements OnInit {
     let obj = this.form.value;
     obj.name =  this.currentName;
     obj.symbol = this.dialogData.symbol;
+    obj.currentValue = this.dialogData.currentValue;
         this.currentStock.forEach((element: any) => {
           if(element.name === this.currentName){
             let indexx = (this.currentStock as []).indexOf(element as never);
