@@ -34,6 +34,7 @@ export class DeleteComponent implements OnInit {
       // })
     this.storageServices.setToLocalStorage('stock',this.currentStock)
     this.service.emitRecordChange('delete');
+    alert('item deleted from tracked stocks list');
   }
   cancel(){
 

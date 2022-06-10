@@ -64,7 +64,7 @@ checked = false;
       this.reset();
       console.log(this.formArray)
       this.sharedService.emitRecordChange('add');
-    
+      alert('item added in tracked stock list');
     
   }
 
