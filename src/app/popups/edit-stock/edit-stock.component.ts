@@ -52,7 +52,7 @@ export class EditStockComponent implements OnInit {
       });
       this.storageServices.setToLocalStorage('stock',this.currentStock);
       this.service.emitRecordChange('edit');
-
+      alert('item updated in tracked stocks list');
    }
 
 }

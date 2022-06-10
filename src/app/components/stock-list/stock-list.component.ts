@@ -26,18 +26,20 @@ export class StockListComponent implements OnInit {
         let data:[] = r['data'];
         data.forEach(e => {
           console.log('e => ', e);
-          this.Stock_List_Data.push({symbol:e['ticker'],name:e['name'],currentValue:e['price'],change:100});
+          let change = e['price'] - e['day_open'];
+          change = Math.round((change / e['price']) * 100); 
+          this.Stock_List_Data.push({symbol:e['ticker'],name:e['name'],currentValue:e['price'],change:change});
         });
         this.dataSource=this.Stock_List_Data;
       },
       (e) => {
         console.log(e);
         this.Stock_List_Data = [
-          {symbol: 'abc', name: 'Hydrogen', currentValue: 0, change: 8 },
-          {symbol: 'efg', name: 'Helium',   currentValue: 0, change: 8 },
-          {symbol: 'mnm', name: 'Lithium',  currentValue: 0,  change: 8 },
-          {symbol: 'ggg', name: 'Beryllium',currentValue: 0, change: 8 },
-          {symbol: 'ssx', name: 'Boron',    currentValue: 0, change: 8 }
+          {symbol: 'hyd', name: 'Hydrogen', currentValue: 0, change: 8 },
+          {symbol: 'hel', name: 'Helium',   currentValue: 0, change: 8 },
+          {symbol: 'lit', name: 'Lithium',  currentValue: 0,  change: 8 },
+          {symbol: 'bery', name: 'Beryllium',currentValue: 0, change: 8 },
+          {symbol: 'bor', name: 'Boron',    currentValue: 0, change: 8 }
         ]
         this.dataSource=this.Stock_List_Data;
       }

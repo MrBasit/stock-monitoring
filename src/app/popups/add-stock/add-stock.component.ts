@@ -57,12 +57,14 @@ checked = false;
       obj.name = this.dialogData.name;
       obj.symbol = this.dialogData.symbol ;
       obj.currentValue = this.dialogData.currentValue;
-      
+
       this.formArray.push(obj)
       this.storageServices.setToLocalStorage('stock',this.formArray)
       this.reset();
       console.log(this.formArray)
       this.sharedService.emitRecordChange('add');
+      alert('item added in tracked stock list');
+    
   }
 
   reset(){
