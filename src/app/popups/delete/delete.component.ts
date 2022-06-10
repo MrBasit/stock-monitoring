@@ -10,7 +10,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 })
 export class DeleteComponent implements OnInit {
 
-  currentStock: any = [];
+  currentStock: [] = [];
   currentName: string= '';
   constructor(private storageServices: LocalstorageservicesService, @Inject(MAT_DIALOG_DATA) private dialogData: any,private service: SharedService) { }
 
@@ -19,12 +19,19 @@ export class DeleteComponent implements OnInit {
     this.currentStock = this.storageServices.getFromLocalStorage('stock');
   }
   delete(){
+      let itemToBeDeleted=[];
       this.currentStock.forEach((element: any) => {
-        if(element.name === this.currentName){
-            let indexx = (this.currentStock as []).indexOf(element as never);
-            (this.currentStock as []).splice(indexx,1)
+          if(element.name === this.currentName){
+              let i = (this.currentStock as []).indexOf(element as never);
+              (this.currentStock as []).splice(i,1)
+              // itemToBeDeleted.push(element);
+          }
         }
-    });
+      )
+      // itemToBeDeleted.forEach(e=>{
+      //   let i = this.currentStock.indexOf(e as never);
+      //   this.currentStock.splice(i,1);
+      // })
     this.storageServices.setToLocalStorage('stock',this.currentStock)
     this.service.emitRecordChange('delete');
   }

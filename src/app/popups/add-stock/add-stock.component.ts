@@ -4,6 +4,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup,} from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
 import { MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { DataService } from 'src/app/data.service';
 import { LocalstorageservicesService } from 'src/app/services/localstorageservices.service';
 import { SharedService } from 'src/app/shared.service';
 
@@ -23,6 +24,7 @@ checked = false;
     @Inject(MAT_DIALOG_DATA) private dialogData : any, 
     private storageServices: LocalstorageservicesService,
     private sharedService:SharedService
+    
     ) {
     this.currentStock = this.storageServices.getFromLocalStorage('stock')
     console.log(this.currentStock)
@@ -32,7 +34,6 @@ checked = false;
     this.createForm();
     this.data = this.dialogData;
     console.log(this.dialogData)
-    
   }
 
   
