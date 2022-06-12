@@ -1,10 +1,11 @@
+import { TrackedStocksComponent } from './../../components/tracked-stocks/tracked-stocks.component';
 import { SharedService } from './../../shared.service';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { ThemePalette } from '@angular/material/core';
 import { Component, Inject, OnInit } from '@angular/core';
 import { LocalstorageservicesService } from 'src/app/services/localstorageservices.service';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormControl, FormGroup } from '@angular/forms';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
@@ -20,7 +21,8 @@ export class EditStockComponent implements OnInit {
  currentName: string = '';
  currentStock: any =[];
  formArray:Array<any> = []
- constructor(private storageServices: LocalstorageservicesService, @Inject(MAT_DIALOG_DATA) private dialogData: any,private service: SharedService) { }
+ constructor(private storageServices: LocalstorageservicesService, @Inject(MAT_DIALOG_DATA) private dialogData: any,private service: SharedService,
+ private dialogRef: MatDialogRef<TrackedStocksComponent>) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -52,7 +54,8 @@ export class EditStockComponent implements OnInit {
       });
       this.storageServices.setToLocalStorage('stock',this.currentStock);
       this.service.emitRecordChange('edit');
-      alert('item updated in tracked stocks list');
+      this.dialogRef.close(this.dialogData)
+
    }
 
 }

@@ -1,7 +1,8 @@
 import { SharedService } from './../../shared.service';
 import { LocalstorageservicesService } from 'src/app/services/localstorageservices.service';
 import { Component, OnInit, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { TrackedStocksComponent } from 'src/app/components/tracked-stocks/tracked-stocks.component';
 
 @Component({
   selector: 'app-delete',
@@ -12,7 +13,8 @@ export class DeleteComponent implements OnInit {
 
   currentStock: [] = [];
   currentName: string= '';
-  constructor(private storageServices: LocalstorageservicesService, @Inject(MAT_DIALOG_DATA) private dialogData: any,private service: SharedService) { }
+  constructor(private storageServices: LocalstorageservicesService, @Inject(MAT_DIALOG_DATA) private dialogData: any,private service: SharedService,
+private dialogRef: MatDialogRef<TrackedStocksComponent>) { }
 
   ngOnInit(): void {
     this.currentName = this.dialogData.name;
@@ -34,7 +36,7 @@ export class DeleteComponent implements OnInit {
       // })
     this.storageServices.setToLocalStorage('stock',this.currentStock)
     this.service.emitRecordChange('delete');
-    alert('item deleted from tracked stocks list');
+    this.dialogRef.close();
   }
   cancel(){
 

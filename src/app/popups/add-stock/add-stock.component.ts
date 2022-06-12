@@ -3,7 +3,8 @@ import { NgAnalyzedFile } from '@angular/compiler';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup,} from '@angular/forms';
 import { ThemePalette } from '@angular/material/core';
-import { MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { StockListComponent } from 'src/app/components/stock-list/stock-list.component';
 import { DataService } from 'src/app/data.service';
 import { LocalstorageservicesService } from 'src/app/services/localstorageservices.service';
 import { SharedService } from 'src/app/shared.service';
@@ -23,7 +24,8 @@ checked = false;
   constructor(
     @Inject(MAT_DIALOG_DATA) private dialogData : any, 
     private storageServices: LocalstorageservicesService,
-    private sharedService:SharedService
+    private sharedService:SharedService,
+    private dialogRef: MatDialogRef<StockListComponent>
     
     ) {
     this.currentStock = this.storageServices.getFromLocalStorage('stock')
@@ -63,7 +65,7 @@ checked = false;
       this.reset();
       console.log(this.formArray)
       this.sharedService.emitRecordChange('add');
-      alert('item added in tracked stock list');
+      this.dialogRef.close(this.dialogData)
     
   }
 

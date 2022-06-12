@@ -8,6 +8,10 @@ import {MatTableModule} from '@angular/material/table';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatNativeDateModule} from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatCardModule} from '@angular/material/card';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+ 
 @NgModule({
   declarations: [],
   imports: [
@@ -19,9 +23,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatDialogModule,
     MatNativeDateModule,
     MatFormFieldModule,
+    MatProgressSpinnerModule,
+    MatCardModule,
+    MatSnackBarModule,
     CommonModule,
   ],
   exports: [
+    MatSnackBarModule,
     MatInputModule,
     MatDatepickerModule,
     MatButtonModule,
@@ -29,6 +37,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatTableModule,
     MatDialogModule,
     MatNativeDateModule,
+    MatProgressSpinnerModule,
+    MatCardModule,
   ]
 })
 export class MaterialModule { }

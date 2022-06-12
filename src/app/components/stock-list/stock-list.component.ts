@@ -1,9 +1,10 @@
 import { LocalstorageservicesService } from './../../services/localstorageservices.service';
 import { AddStockComponent } from './../../popups/add-stock/add-stock.component';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DataService } from 'src/app/data.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-stock-list',
@@ -16,13 +17,16 @@ export class StockListComponent implements OnInit {
  public dataSource: StockValues[];
  dialogconfig = new MatDialogConfig();
  data={}
+ spinner: boolean = true;
  
-  constructor(private dialog: MatDialog, private fb: FormBuilder, private dataService:DataService, private storageServices: LocalstorageservicesService) {}
+  constructor(private dialog: MatDialog, private fb: FormBuilder, private dataService:DataService, private storageServices: LocalstorageservicesService,
+    private _snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     console.log('getting all recored');
     this.dataService.getAllStockRecords(['AAPL','TSLA','MSFT']).subscribe(
       (r:any)=>{
+        this.spinner = false;
         let data:[] = r['data'];
         data.forEach(e => {
           console.log('e => ', e);
@@ -33,6 +37,7 @@ export class StockListComponent implements OnInit {
         this.dataSource=this.Stock_List_Data;
       },
       (e) => {
+        this.spinner = false;
         console.log(e);
         this.Stock_List_Data = [
           {symbol: 'hyd', name: 'Hydrogen', currentValue: 0, change: 8 },
@@ -52,18 +57,21 @@ export class StockListComponent implements OnInit {
     (this.storageServices.getFromLocalStorage('stock') as [] ).forEach(e=>{
       if(e['symbol'] == target.symbol){
         isExist=true;
-        console.log('found');
         // break;
       }
     })
 
     if(isExist){
-      alert('this symbol is already getting tracked');
+      this._snackBar.open(target.name + ' symbol is already getting tracked', "close")
     }
     else{
-      this.dialog.open(AddStockComponent, {
+      let dialogRef = this.dialog.open(AddStockComponent, {
         width: '400px',
         data : target
+      })
+      
+      dialogRef.afterClosed().subscribe(s=> {
+        this._snackBar.open(s.name + ' ' + 'tracked successfully', 'close')
       })
     }
     ;

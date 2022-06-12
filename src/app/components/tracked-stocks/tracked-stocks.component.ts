@@ -1,10 +1,10 @@
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { LocalstorageservicesService } from './../../services/localstorageservices.service';
 import { DeleteComponent } from './../../popups/delete/delete.component';
 import { ViewStockComponent } from './../../popups/view-stock/view-stock.component';
-import { AddStockComponent } from './../../popups/add-stock/add-stock.component';
 import { EditStockComponent } from './../../popups/edit-stock/edit-stock.component';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatTable } from '@angular/material/table';
 import { SharedService } from 'src/app/shared.service';
 
@@ -20,7 +20,8 @@ export class TrackedStocksComponent implements OnInit {
   constructor(
     private dialog: MatDialog,
     private storageServices: LocalstorageservicesService,
-    private sharedService: SharedService
+    private sharedService: SharedService,
+    private snackbar: MatSnackBar
     ) { }
 
   ngOnInit(): void {
@@ -29,22 +30,28 @@ export class TrackedStocksComponent implements OnInit {
     this.dataSource = this.storageServices.getFromLocalStorage('stock');
     })
   }
-  openEditPopup(values: {}){
-    this.dialog.open(EditStockComponent,{
+  openEditPopup(values: any){
+    let dialogRef = this.dialog.open(EditStockComponent,{
       width: '400px',
       data: values
     })
+    dialogRef.afterClosed().subscribe(s=>{
+      this.snackbar.open(values.name + " " + " edited from tracked stocks list", 'close')
+    })
   }
-  openViewPopup(values: {}){
+  openViewPopup(values: any){
     this.dialog.open(ViewStockComponent,{
       width: '300px',
       data: values
     })
   }
-  openDeletePopup(value: {}){
-    this.dialog.open(DeleteComponent,{
+  openDeletePopup(value: any){
+    let dialogRef = this.dialog.open(DeleteComponent,{
       width: '250px',
       data: value,
+    })
+    dialogRef.afterClosed().subscribe(s=>{
+      this.snackbar.open( value.name + " deleted from tracked stocks list", 'close')
     })
     
   }
