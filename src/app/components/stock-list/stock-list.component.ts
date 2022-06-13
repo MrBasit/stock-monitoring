@@ -9,6 +9,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { DataService } from 'src/app/data.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SharedService } from 'src/app/shared.service';
+import { ThrowStmt } from '@angular/compiler';
 
 @Component({
   selector: 'app-stock-list',
@@ -27,11 +29,18 @@ export class StockListComponent implements OnInit {
     private dialog: MatDialog,
     private fb: FormBuilder,
     private dataService: DataService,
+    private sharedService: SharedService,
     private storageServices: LocalstorageservicesService,
     private _snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
+    this.sharedService.reloadData.subscribe(
+      (r) => {
+        //reload data here
+        console.log('reload data here');
+      }
+    )
     console.log('getting all recored');
     this.dataService.getAllStockRecords(['AAPL', 'TSLA', 'MSFT']).subscribe(
       (r: any) => {
