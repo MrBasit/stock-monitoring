@@ -3,25 +3,32 @@
 
 @import "./assets/common.scss";
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
 
-a{
-    text-decoration: none;
-    color: blue;
-    margin: 0 .2rem;
-    cursor: pointer;
+a {
+  text-decoration: none;
+  color: blue;
+  margin: 0 0.2rem;
+  cursor: pointer;
 }
-table{
-    width: 100%;
+table {
+  width: 100%;
 }
-input{
-    padding: 0;
+input {
+  padding: 0;
+}
+h1 {
+  font-size: 18px !important;
+  font-weight: 600 !important;
 }
 // utility classes
-.container{
-    padding: 2rem 2rem;
+.container {
+  padding: 2rem 2rem;
 }
-
-
-
