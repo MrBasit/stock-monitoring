@@ -68,12 +68,17 @@ export class StockListComponent implements OnInit {
   addPopup(target: any) {
     //check existance of symbol in localstorage
     let isExist = false;
-    (this.storageServices.getFromLocalStorage('stock') as []).forEach((e) => {
-      if (e['symbol'] == target.symbol) {
-        isExist = true;
-        // break;
-      }
-    });
+    let data = this.storageServices.getFromLocalStorage('stock') as [];
+    if (data !== null) {
+      data.forEach((e) => {
+        if (e['symbol'] == target.symbol) {
+          isExist = true;
+          // break;
+        }
+      });
+    } else {
+      this._snackBar.open('null local sotrage', 'close');
+    }
 
     if (isExist) {
       this._snackBar.open(
