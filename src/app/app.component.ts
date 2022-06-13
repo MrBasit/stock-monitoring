@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { Observable, observable, interval } from 'rxjs';
 import { DataService } from './data.service';
+import { SharedService } from './shared.service';
 
 @Component({
   selector: 'app-root',
@@ -8,9 +10,14 @@ import { DataService } from './data.service';
 })
 export class AppComponent {
   title = 'stockpricevariation';
-  constructor(private dataService:DataService){}
+  constructor(private dataService:DataService, private sharedService:SharedService){}
   ngOnInit():void{
     this.dataService.getAllStockRecords(['AAPL','TSLA','MSFT']).subscribe(r=>{console.log(r)});
+    interval(10000).subscribe(
+      (r) => {
+        this.sharedService.emitReloadData();
+      }
+    );
   }
 }
 
