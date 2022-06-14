@@ -11,7 +11,7 @@ import { DataService } from 'src/app/data.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SharedService } from 'src/app/shared.service';
 import { ThrowStmt } from '@angular/compiler';
-
+import { interval } from 'rxjs';
 @Component({
   selector: 'app-stock-list',
   templateUrl: './stock-list.component.html',
@@ -35,17 +35,18 @@ export class StockListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.sharedService.reloadData.subscribe(
+    interval(6000).subscribe(
       (r) => {
-        //reload data here
-        console.log('reload data here');
+        this.sharedService.emitReloadData(this.Stock_List_Data);
       }
-    )
+    );
+
     console.log('getting all recored');
     this.dataService.getAllStockRecords(['AAPL', 'TSLA', 'MSFT']).subscribe(
       (r: any) => {
         this.spinner = false;
         let data: [] = r['data'];
+        console.log('stock list -> ',data);
         data.forEach((e) => {
           let change = e['price'] - e['day_open'];
           change = Math.round((change / e['price']) * 100);

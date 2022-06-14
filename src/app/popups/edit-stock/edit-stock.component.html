@@ -22,11 +22,11 @@
    
        <!-- expire form control -->
        <div class="form-control ctrl-toggle">
-           <mat-slide-toggle [color]="color" formControlName="expire">Expire</mat-slide-toggle >
+           <mat-slide-toggle [color]="color" formControlName="expire" [(ngModel)]="checked">Expire</mat-slide-toggle >
        </div>
    
        <!-- datepicker form control -->
-       <div class="form-control mat-datepicker">
+       <div class="form-control mat-datepicker" *ngIf="checked">
          <mat-form-field appearance="fill" class="mat-width">
            <input matInput [matDatepicker]="picker" formControlName="date">
            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>

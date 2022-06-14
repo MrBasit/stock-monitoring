@@ -12,12 +12,7 @@ export class AppComponent {
   title = 'stockpricevariation';
   constructor(private dataService:DataService, private sharedService:SharedService){}
   ngOnInit():void{
-    this.dataService.getAllStockRecords(['AAPL','TSLA','MSFT']).subscribe(r=>{console.log(r)});
-    interval(10000).subscribe(
-      (r) => {
-        this.sharedService.emitReloadData();
-      }
-    );
+    
   }
 }
 

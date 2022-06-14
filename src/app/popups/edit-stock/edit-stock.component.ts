@@ -15,7 +15,7 @@ import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
   styleUrls: ['./edit-stock.component.scss']
 })
 export class EditStockComponent implements OnInit {
-
+ checked = false;  
  color : ThemePalette = 'primary'
  form!: FormGroup;
  currentName: string = '';
@@ -33,6 +33,7 @@ export class EditStockComponent implements OnInit {
   // create form 
 
   createForm(): FormGroup{
+    this.checked=this.dialogData.expire;
     return this.form = new FormGroup({
       minPrice: new FormControl(this.dialogData.minPrice),
       maxPrice: new FormControl(this.dialogData.maxPrice),
@@ -45,17 +46,18 @@ export class EditStockComponent implements OnInit {
     let obj = this.form.value;
     obj.name =  this.currentName;
     obj.symbol = this.dialogData.symbol;
+    obj.isExpired=false;
+    obj.isLeverageCrossed=false;
     obj.currentValue = this.dialogData.currentValue;
-        this.currentStock.forEach((element: any) => {
-          if(element.name === this.currentName){
-            let indexx = (this.currentStock as []).indexOf(element as never);
-            (this.currentStock as Array<any>).splice(indexx,1,obj)
-          }
-      });
-      this.storageServices.setToLocalStorage('stock',this.currentStock);
-      this.service.emitRecordChange('edit');
-      this.dialogRef.close(this.dialogData)
-
+    this.currentStock.forEach((element: any) => {
+      if(element.name === this.currentName){
+        let indexx = (this.currentStock as []).indexOf(element as never);
+        (this.currentStock as Array<any>).splice(indexx,1,obj)
+      }
+    });
+    this.storageServices.setToLocalStorage('stock',this.currentStock);
+    this.service.emitRecordChange('edit');
+    this.dialogRef.close(this.dialogData);
    }
 
 }

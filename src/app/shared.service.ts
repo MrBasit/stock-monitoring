@@ -20,7 +20,7 @@ export class SharedService {
   reloadDataSource = new Subject<any>();
   reloadData = this.reloadDataSource.asObservable();
 
-  emitReloadData(){
-    this.reloadDataSource.next(true);
+  emitReloadData(data){
+    this.reloadDataSource.next(data);
   }
 }

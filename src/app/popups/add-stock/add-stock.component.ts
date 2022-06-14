@@ -59,6 +59,8 @@ checked = false;
       obj.name = this.dialogData.name;
       obj.symbol = this.dialogData.symbol ;
       obj.currentValue = this.dialogData.currentValue;
+      obj.isExpired = false;
+      obj.isLimitCrossed = false;
 
       this.formArray.push(obj)
       this.storageServices.setToLocalStorage('stock',this.formArray)
