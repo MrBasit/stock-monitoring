@@ -11,10 +11,18 @@ import { SharedService } from 'src/app/shared.service';
 @Component({
   selector: 'app-tracked-stocks',
   templateUrl: './tracked-stocks.component.html',
-  styleUrls: ['./tracked-stocks.component.scss']
+  styleUrls: ['./tracked-stocks.component.scss'],
 })
 export class TrackedStocksComponent implements OnInit {
-  displayedColumns = ['Name','Symbol', 'Current Value', 'Min', 'Max', 'Expires', 'Action'];
+  displayedColumns = [
+    'Name',
+    'Symbol',
+    'Current Value',
+    'Min',
+    'Max',
+    'Expires',
+    'Action',
+  ];
   dataSource: Array<any> = [];
   @ViewChild('table') table!: MatTable<any>;
   constructor(
@@ -22,38 +30,45 @@ export class TrackedStocksComponent implements OnInit {
     private storageServices: LocalstorageservicesService,
     private sharedService: SharedService,
     private snackbar: MatSnackBar
-    ) { }
+  ) {}
 
   ngOnInit(): void {
+    this.sharedService.reloadData.subscribe((r) => {
+      console.log('compare prices here');
+    });
     this.dataSource = this.storageServices.getFromLocalStorage('stock');
-    this.sharedService.recoredChanged.subscribe(r=>{
-    this.dataSource = this.storageServices.getFromLocalStorage('stock');
-    })
+    this.sharedService.recoredChanged.subscribe((r) => {
+      this.dataSource = this.storageServices.getFromLocalStorage('stock');
+    });
   }
-  openEditPopup(values: any){
-    let dialogRef = this.dialog.open(EditStockComponent,{
+  openEditPopup(values: any) {
+    let dialogRef = this.dialog.open(EditStockComponent, {
       width: '400px',
-      data: values
-    })
-    dialogRef.afterClosed().subscribe(s=>{
-      this.snackbar.open(values.name + " " + " edited from tracked stocks list", 'close')
-    })
+      data: values,
+    });
+    dialogRef.afterClosed().subscribe((s) => {
+      this.snackbar.open(
+        values.name + ' ' + ' edited from tracked stocks list',
+        'close'
+      );
+    });
   }
-  openViewPopup(values: any){
-    this.dialog.open(ViewStockComponent,{
+  openViewPopup(values: any) {
+    this.dialog.open(ViewStockComponent, {
       width: '300px',
-      data: values
-    })
+      data: values,
+    });
   }
-  openDeletePopup(value: any){
-    let dialogRef = this.dialog.open(DeleteComponent,{
+  openDeletePopup(value: any) {
+    let dialogRef = this.dialog.open(DeleteComponent, {
       width: '250px',
       data: value,
-    })
-    dialogRef.afterClosed().subscribe(s=>{
-      this.snackbar.open( value.name + " deleted from tracked stocks list", 'close')
-    })
-    
+    });
+    dialogRef.afterClosed().subscribe((s) => {
+      this.snackbar.open(
+        value.name + ' deleted from tracked stocks list',
+        'close'
+      );
+    });
   }
-
 }
